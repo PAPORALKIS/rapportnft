@@ -135,17 +135,17 @@ document.querySelectorAll('.section .content').forEach(c=>c.style.display='none'
 function toggleDarkMode(){ document.body.classList.toggle('dark-mode'); localStorage.setItem('darkMode',document.body.classList.contains('dark-mode')); }
 if(localStorage.getItem('darkMode')==='true'){document.body.classList.add('dark-mode');}
 
-// Sample dynamic content (can be replaced with API fetch)
+// Sample dynamic content (simulable par API)
 const communities = [
 { name:'PROOF Collective', url:'https://www.proof.xyz/collective', img:'https://www.proof.xyz/assets/proof-logo.png'},
-{ name:'Bored Ape Yacht Club', url:'https://boredapeyachtclub.com/', img:'https://boredapeyachtclub.com/static/media/BAYCLogo.5b1f6f34.png'},
+{ name:'BAYC', url:'https://boredapeyachtclub.com/', img:'https://boredapeyachtclub.com/static/media/BAYCLogo.5b1f34.png'},
 { name:'Nifty Gateway', url:'https://www.niftygateway.com/', img:'https://niftygateway.com/img/logo.svg'},
 { name:'Rug Radio', url:'https://www.rug.fm/faq', img:'https://www.rug.fm/assets/logo.png'}
 ];
 const communityList=document.getElementById('community-list');
 communities.forEach(c=>{const li=document.createElement('li'); li.innerHTML=`<strong>${c.name}</strong>: <a href="${c.url}" target="_blank">Site officiel</a><br><img class="lightbox-img" data-caption="${c.name}" src="${c.img}">`; communityList.appendChild(li);});
 
-// Sample NFT list
+// Sample NFTs
 const nftData = [
 { name:'Moonbirds', price:15, volume:1200, rarity:'Élevée', img:'https://images.openai.com/thumbnails/url/l3rnU3icu1mSUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw42Tc-ONyh0zfCoDAgrDXXx9A4N8y9Ozgs0SC3QjXer9CnzMS6O0vzitR1K85MzDItC8gNzSz0NsrOSVcrBgAalyoA'},
 { name:'BAYC', price:70, volume:3200, rarity:'Très élevée', img:'https://boredapeyachtclub.com/static/media/BAYCLogo.5b1f6f34.png'},
@@ -155,7 +155,7 @@ const nftListEl=document.getElementById('nft-list');
 const nftGallery=document.getElementById('nft-gallery');
 nftData.forEach(nft=>{nftListEl.innerHTML+=`<tr><td class="name">${nft.name}</td><td class="price">${nft.price}</td><td class="volume">${nft.volume}</td><td class="rarity">${nft.rarity}</td></tr>`; nftGallery.innerHTML+=`<img class="lightbox-img" data-caption="${nft.name} NFT, prix moyen ${nft.price} ETH" src="${nft.img}">`;});
 
-// Section 3 events
+// Events
 const eventsData = [
 { name:'ETHCC Paris', desc:'Ethereum Community Conference annuel, juin.', url:'https://www.ethcc.io/', img:'https://upload.wikimedia.org/wikipedia/commons/7/7c/ETHCC_Logo.png'},
 { name:'Meetup Marseille', desc:'Networking et échanges communautaires.', img:'https://miro.medium.com/max/1400/1*i3h2Tke7rH6XOfcmy2QFfw.png'},
