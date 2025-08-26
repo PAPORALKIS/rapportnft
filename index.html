@@ -3,191 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rapport NFT Ultime Pro Interactive</title>
+<title>NFT Live Pro - Rapport Ultime</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/list.js@2.3.1/dist/list.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
-body { font-family: Arial, sans-serif; background-color: #f5f5f5; transition: background 0.3s, color 0.3s; }
-body.dark-mode { background-color: #1e1e1e; color: #f5f5f5; }
-.section { margin: 30px 0; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 3px 12px rgba(0,0,0,0.2); transition: background 0.3s, color 0.3s;}
-body.dark-mode .section { background: #2a2a2a; color: #f5f5f5; }
-.section h2 { cursor: pointer; transition: color 0.2s; }
-.section h2:hover { color: #007bff; }
-.chart-container { width: 100%; max-width: 800px; margin: 20px auto; }
-img { max-width: 100%; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
-img:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(0,0,0,0.4); }
-.lightbox-caption { color:white; text-align:center; margin-top:10px; font-size:1rem; }
-#lightbox { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); justify-content:center; align-items:center; z-index:1000; flex-direction: column; }
-#lightbox img { max-width:90%; max-height:80%; border-radius: 10px; }
-#lightbox .close, #lightbox .prev, #lightbox .next { position:absolute; color:white; font-size:2rem; cursor:pointer; user-select:none; }
+body { font-family: Arial,sans-serif; background:#f5f5f5; transition: background 0.3s, color 0.3s;}
+body.dark-mode { background:#1e1e1e; color:#f5f5f5;}
+.container { max-width:1200px; margin:auto; padding:20px;}
+.controls { margin-bottom:20px; }
+nav a { margin-right:15px; color:#007bff; text-decoration:none; }
+nav a:hover { text-decoration:underline; }
+.section { margin:30px 0; padding:20px; background:#fff; border-radius:10px; box-shadow:0 3px 12px rgba(0,0,0,0.2);}
+body.dark-mode .section { background:#2a2a2a; color:#f5f5f5;}
+img { max-width:100%; border-radius:8px; margin-bottom:10px; cursor:pointer; transition:transform 0.3s,box-shadow 0.3s;}
+img:hover { transform:scale(1.05); box-shadow:0 5px 20px rgba(0,0,0,0.4);}
+#lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); justify-content:center; align-items:center; z-index:1000; flex-direction:column;}
+#lightbox img { max-width:90%; max-height:80%; border-radius:10px; }
+#lightbox .close, #lightbox .prev, #lightbox .next { position:absolute; color:white; font-size:2rem; cursor:pointer; user-select:none;}
 #lightbox .close { top:10px; right:20px; }
-#lightbox .prev { left:20px; top:50%; transform:translateY(-50%); }
-#lightbox .next { right:20px; top:50%; transform:translateY(-50%); }
-.tooltip-custom { position: absolute; background: rgba(0,0,0,0.85); color: #fff; padding: 5px 10px; border-radius: 5px; font-size: 0.9rem; display: none; z-index:1001; pointer-events:none;}
-@media print { .section .content { display: block !important; } }
+#lightbox .prev { left:20px; top:50%; transform:translateY(-50%);}
+#lightbox .next { right:20px; top:50%; transform:translateY(-50%);}
+.lightbox-caption { color:white; text-align:center; margin-top:10px; font-size:1rem; }
+.chart-container { width:100%; max-width:800px; margin:20px auto; }
+@media print { .section .content { display:block !important; } }
 </style>
 </head>
 <body>
 
-<div class="container my-4">
-<h1 class="text-center mb-4">Rapport NFT Ultime Pro Interactive</h1>
-<div class="text-center mb-4">
-  <button class="btn btn-primary me-2" onclick="generatePDF()">Télécharger PDF Ultime</button>
+<div class="container">
+<h1 class="text-center mb-4">NFT Live Pro - Rapport Ultime</h1>
+<div class="text-center mb-4 controls">
+  <button class="btn btn-primary me-2" onclick="generatePDF()">Télécharger PDF</button>
   <button class="btn btn-secondary" onclick="toggleDarkMode()">Dark/Light Mode</button>
 </div>
+
 <nav class="mb-4">
 <a href="#section1" class="me-3">Communautés NFT</a>
 <a href="#section2" class="me-3">Collections & Annotations</a>
 <a href="#section3" class="me-3">Événements France</a>
 <a href="#section4" class="me-3">Investissement</a>
-<a href="#section5" class="me-3">Liens utiles</a>
-<a href="#section6" class="me-3">Résumé</a>
 </nav>
 
-<!-- Section 1 – Communautés NFT -->
+<!-- Sections -->
 <div class="section" id="section1">
-<h2 onclick="toggleSection(this)">1. Communautés NFT exclusives</h2>
-<div class="content">
-<ul id="community-list"></ul>
-</div>
+<h2>1. Communautés NFT exclusives</h2>
+<div class="content"></div>
 </div>
 
-<!-- Section 2 – Collections & Annotations -->
 <div class="section" id="section2">
-<h2 onclick="toggleSection(this)">2. Collections & Annotations</h2>
-<div class="content">
-<input class="search form-control mb-3" placeholder="Rechercher une collection..." />
-<table class="table table-hover">
-<thead>
-<tr>
-<th><button class="sort" data-sort="name">Collection</button></th>
-<th><button class="sort" data-sort="price">Prix moyen (ETH)</button></th>
-<th><button class="sort" data-sort="volume">Volume 30j (ETH)</button></th>
-<th><button class="sort" data-sort="rarity">Rareté</button></th>
-</tr>
-</thead>
-<tbody class="list" id="nft-list"></tbody>
-</table>
-<div class="chart-container"><canvas id="marketChart"></canvas></div>
-<div class="chart-container"><canvas id="priceTrendChart"></canvas></div>
-<div id="nft-gallery"></div>
-</div>
+<h2>2. Collections & Annotations</h2>
+<div class="content"></div>
 </div>
 
-<!-- Section 3 – Événements France -->
 <div class="section" id="section3">
-<h2 onclick="toggleSection(this)">3. Événements France annotés</h2>
-<div class="content" id="events-list"></div>
+<h2>3. Événements France</h2>
+<div class="content"></div>
 </div>
 
-<!-- Section 4 – Investissement -->
 <div class="section" id="section4">
-<h2 onclick="toggleSection(this)">4. Opportunités d'investissement annotées</h2>
-<div class="content">
-<ul>
-<li><strong>Courte durée</strong>: Flip rapide de NFT liquides, suivi quotidien.</li>
-<li><strong>Moyenne durée</strong>: Collections rares, staking, participation communautés.</li>
-<li><strong>Long terme</strong>: Pass memberships, drops rares, projets innovants.</li>
-</ul>
-<p>Marketplaces recommandées: <a href="https://opensea.io/" target="_blank">OpenSea</a>, <a href="https://looksrare.org/" target="_blank">LooksRare</a>, <a href="https://rarible.com/" target="_blank">Rarible</a></p>
-</div>
-</div>
-
-<!-- Section 5 – Liens utiles -->
-<div class="section" id="section5">
-<h2 onclick="toggleSection(this)">5. Liens utiles</h2>
-<div class="content">
-<ul>
-<li><a href="https://www.proof.xyz/collective" target="_blank">PROOF Collective</a></li>
-<li><a href="https://boredapeyachtclub.com/" target="_blank">BAYC</a></li>
-<li><a href="https://www.niftygateway.com/" target="_blank">Nifty Gateway</a></li>
-<li><a href="https://www.rug.fm/faq" target="_blank">Rug Radio</a></li>
-<li><a href="https://opensea.io/" target="_blank">OpenSea</a></li>
-</ul>
-</div>
-</div>
-
-<!-- Section 6 – Résumé -->
-<div class="section" id="section6">
-<h2 onclick="toggleSection(this)">6. Résumé et synthèse</h2>
-<div class="content">
-<p>Ce rapport NFT ultime fournit toutes les informations détaillées sur le marché, communautés, collections, événements et stratégies d’investissement. Chaque NFT et événement est annoté et illustré pour un guide pédagogique complet et interactif.</p>
+<h2>4. Opportunités d'investissement</h2>
+<div class="content"></div>
 </div>
 </div>
 
 <!-- Lightbox -->
 <div id="lightbox">
-<span class="close" onclick="closeLightbox()">&times;</span>
-<span class="prev" onclick="prevImage()">&#10094;</span>
-<span class="next" onclick="nextImage()">&#10095;</span>
-<img src="" alt=""/>
-<div class="lightbox-caption"></div>
+  <span class="close" onclick="closeLightbox()">&times;</span>
+  <span class="prev" onclick="prevImage()">&#10094;</span>
+  <span class="next" onclick="nextImage()">&#10095;</span>
+  <img src="" alt=""/>
+  <div class="lightbox-caption"></div>
 </div>
 
 <script>
-// Collapsible sections
-function toggleSection(el){ const content=el.nextElementSibling; content.style.display=(content.style.display==='none')?'block':'none'; }
-document.querySelectorAll('.section .content').forEach(c=>c.style.display='none');
-
 // Dark/Light mode
-function toggleDarkMode(){ document.body.classList.toggle('dark-mode'); localStorage.setItem('darkMode',document.body.classList.contains('dark-mode')); }
-if(localStorage.getItem('darkMode')==='true'){document.body.classList.add('dark-mode');}
+function toggleDarkMode(){ document.body.classList.toggle('dark-mode'); localStorage.setItem('darkMode',document.body.classList.contains('dark-mode'));}
+if(localStorage.getItem('darkMode')==='true'){ document.body.classList.add('dark-mode');}
 
-// Sample dynamic content (simulable par API)
-const communities = [
+// Lightbox
+const lightbox=document.getElementById('lightbox'); const lbImage=lightbox.querySelector('img'); const lbCaption=lightbox.querySelector('.lightbox-caption');
+let images=[], currentIndex=0;
+function openLightbox(i){currentIndex=i; lightbox.style.display='flex'; lbImage.src=images[currentIndex].src; lbCaption.textContent=images[currentIndex].dataset.caption;}
+function closeLightbox(){lightbox.style.display='none';}
+function prevImage(){ currentIndex=(currentIndex-1+images.length)%images.length; openLightbox(currentIndex);}
+function nextImage(){ currentIndex=(currentIndex+1)%images.length; openLightbox(currentIndex);}
+
+// PDF Export
+function generatePDF(){ document.querySelectorAll('.section .content').forEach(c=>c.style.display='block'); html2pdf().from(document.body).set({margin:0.5,filename:'NFT_Live_Pro.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'in',format:'a4',orientation:'portrait'}}).save(); }
+
+// Simulated or Live NFT Data (replace fetch with OpenSea API for live)
+const nftCommunities=[
 { name:'PROOF Collective', url:'https://www.proof.xyz/collective', img:'https://www.proof.xyz/assets/proof-logo.png'},
 { name:'BAYC', url:'https://boredapeyachtclub.com/', img:'https://boredapeyachtclub.com/static/media/BAYCLogo.5b1f34.png'},
-{ name:'Nifty Gateway', url:'https://www.niftygateway.com/', img:'https://niftygateway.com/img/logo.svg'},
-{ name:'Rug Radio', url:'https://www.rug.fm/faq', img:'https://www.rug.fm/assets/logo.png'}
+{ name:'Nifty Gateway', url:'https://www.niftygateway.com/', img:'https://niftygateway.com/img/logo.svg'}
 ];
-const communityList=document.getElementById('community-list');
-communities.forEach(c=>{const li=document.createElement('li'); li.innerHTML=`<strong>${c.name}</strong>: <a href="${c.url}" target="_blank">Site officiel</a><br><img class="lightbox-img" data-caption="${c.name}" src="${c.img}">`; communityList.appendChild(li);});
 
-// Sample NFTs
-const nftData = [
+const nftCollections=[
 { name:'Moonbirds', price:15, volume:1200, rarity:'Élevée', img:'https://images.openai.com/thumbnails/url/l3rnU3icu1mSUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw42Tc-ONyh0zfCoDAgrDXXx9A4N8y9Ozgs0SC3QjXer9CnzMS6O0vzitR1K85MzDItC8gNzSz0NsrOSVcrBgAalyoA'},
 { name:'BAYC', price:70, volume:3200, rarity:'Très élevée', img:'https://boredapeyachtclub.com/static/media/BAYCLogo.5b1f6f34.png'},
 { name:'Grails', price:50, volume:500, rarity:'Rare', img:'https://i.seadn.io/gae/ExGrailsNFT.png'}
 ];
-const nftListEl=document.getElementById('nft-list');
-const nftGallery=document.getElementById('nft-gallery');
-nftData.forEach(nft=>{nftListEl.innerHTML+=`<tr><td class="name">${nft.name}</td><td class="price">${nft.price}</td><td class="volume">${nft.volume}</td><td class="rarity">${nft.rarity}</td></tr>`; nftGallery.innerHTML+=`<img class="lightbox-img" data-caption="${nft.name} NFT, prix moyen ${nft.price} ETH" src="${nft.img}">`;});
 
-// Events
-const eventsData = [
+const nftEvents=[
 { name:'ETHCC Paris', desc:'Ethereum Community Conference annuel, juin.', url:'https://www.ethcc.io/', img:'https://upload.wikimedia.org/wikipedia/commons/7/7c/ETHCC_Logo.png'},
-{ name:'Meetup Marseille', desc:'Networking et échanges communautaires.', img:'https://miro.medium.com/max/1400/1*i3h2Tke7rH6XOfcmy2QFfw.png'},
-{ name:'Workshop NFT', desc:'Initiation et stratégies pour investisseurs.', img:'https://i.imgur.com/FRvZg1F.png'}
+{ name:'Meetup Marseille', desc:'Networking et échanges communautaires.', img:'https://miro.medium.com/max/1400/1*i3h2Tke7rH6XOfcmy2QFfw.png'}
 ];
-const eventsListEl=document.getElementById('events-list');
-eventsData.forEach(ev=>{eventsListEl.innerHTML+=`<p><strong>${ev.name}</strong> - ${ev.desc} ${ev.url?'<a href="'+ev.url+'" target="_blank">Site officiel</a>':''}</p><img class="lightbox-img" data-caption="${ev.name}" src="${ev.img}">`;});
 
-// Lightbox
-const lightbox=document.getElementById('lightbox');
-const lbImage=lightbox.querySelector('img');
-const lbCaption=lightbox.querySelector('.lightbox-caption');
-let images=document.querySelectorAll('.lightbox-img');
-let currentIndex=0;
-images.forEach((img,i)=>{img.addEventListener('click',()=>{currentIndex=i;openLightbox();});});
-function openLightbox(){lightbox.style.display='flex';lbImage.src=images[currentIndex].src;lbCaption.textContent=images[currentIndex].dataset.caption;}
-function closeLightbox(){lightbox.style.display='none';}
-function prevImage(){currentIndex=(currentIndex-1+images.length)%images.length;lbImage.src=images[currentIndex].src;lbCaption.textContent=images[currentIndex].dataset.caption;}
-function nextImage(){currentIndex=(currentIndex+1)%images.length;lbImage.src=images[currentIndex].src;lbCaption.textContent=images[currentIndex].dataset.caption;}
+// Populate sections
+const sec1=document.querySelector('#section1 .content');
+nftCommunities.forEach(c=>{
+  const div=document.createElement('div');
+  div.innerHTML=`<strong>${c.name}</strong>: <a href="${c.url}" target="_blank">Site officiel</a><br><img src="${c.img}" class="lightbox-img" data-caption="${c.name}">`;
+  sec1.appendChild(div);
+});
 
-// Charts
-const ctx=document.getElementById('marketChart').getContext('2d');
-new Chart(ctx,{type:'doughnut',data:{labels:['Art numérique','Jeux vidéo','Musique','Autres'],datasets:[{data:[40,30,20,10],backgroundColor:['#007bff','#28a745','#ffc107','#dc3545']}]} ,options:{responsive:true,plugins:{legend:{position:'bottom'}}}});
-const ctx2=document.getElementById('priceTrendChart').getContext('2d');
-new Chart(ctx2,{type:'line',data:{labels:['J-30','J-25','J-20','J-15','J-10','J-5','Aujourd’hui'],datasets:[{label:'Moonbirds',data:[12,13,14,13,14,15,15],borderColor:'#007bff',fill:false},{label:'BAYC',data:[65,66,68,69,70,71,70],borderColor:'#28a745',fill:false},{label:'Grails',data:[45,46,47,48,49,50,50],borderColor:'#ffc107',fill:false}]} ,options:{responsive:true,plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:false}}}});
+const sec2=document.querySelector('#section2 .content');
+nftCollections.forEach((nft,i)=>{
+  const div=document.createElement('div');
+  div.innerHTML=`<h4>${nft.name} - ${nft.price} ETH</h4><img src="${nft.img}" class="lightbox-img" data-caption="${nft.name} NFT">`;
+  sec2.appendChild(div);
+});
 
-// List.js
-var options={valueNames:['name','price','volume','rarity']};
-var nftList=new List('nft-list',options);
+const sec3=document.querySelector('#section3 .content');
+nftEvents.forEach(ev=>{
+  const div=document.createElement('div');
+  div.innerHTML=`<p><strong>${ev.name}</strong> - ${ev.desc} ${ev.url?'<a href="'+ev.url+'" target="_blank">Site officiel</a>':''}</p><img src="${ev.img}" class="lightbox-img" data-caption="${ev.name}">`;
+  sec3.appendChild(div);
+});
 
-// PDF
-function generatePDF(){document.querySelectorAll('.section .content').forEach(c=>c.style.display='block'); const element=document.body; const opt={margin:0.5,filename:'Rapport_NFT_Ultime_Pro.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'in',format:'a4',orientation:'portrait'}}; html2pdf().set(opt).from(element).save(); document.querySelectorAll('.section .content').forEach(c=>c.style.display='none');}
-</script>
-</body>
-</html>
+// Initialize lightbox images
+images=document.querySelectorAll('.lightbox-img');
+images.forEach((img,i)=>img.addEventListener('click',()=>openLightbox(i)));
+
+// Charts example
+const ctx=document.createElement('canvas');
+sec2.appendChild(ctx);
+new Chart(ctx,{type:'line',data:{labels:['J-6','J-5','J-4','J-3','J-2','J-1','Aujourd’hui'],datasets:[{label:'Moonbirds',data:[12,13,14,13,14,15,15],borderColor:'#007bff',fill:false},{label:'BAYC',data:[65,66,68,69,70,71,70],borderColor:'#28a745',fill:false},{label:'Grails',data:[45,46,47,48,49,50,50],borderColor:'#ffc107',fill:false}]},options:{responsive:true,plugins:{legend:{position:'bottom'}
